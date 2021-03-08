@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Input, Button, Text, SocialIcon } from 'react-native-elements';
+import { Input, Button, Text } from 'react-native-elements';
 
-function CreateProfile({ navigation }) {
-
+function CreateProfile({ route, navigation }) {
     const [username, setUsername] = React.useState('')
     const [password, setPassword] = React.useState('')
     const [confirmPassword, setConfirmPassword] = React.useState('')
@@ -44,16 +43,16 @@ function CreateProfile({ navigation }) {
         <View style={styles.mainContainer}>
             <View>
                 <View style={styles.labelContainer}>
-                    <Text style={styles.header}>Welcome Name</Text>
+                    <Text style={styles.header}>Welcome {route.params.name}</Text>
                     <Text style={styles.subheader}>Let's create a profile for you.</Text>
                 </View>
                 <View style={styles.formContainer}>
                     <Input
                         placeholder='Username'
                         onChangeText={value => setUsername(value)}
-                    error={usernameError}
-                    errorMessage={usernameError ? "Username must be unique." : ""}
-                    onBlur={() => validateUsername(username)}
+                        error={usernameError}
+                        errorMessage={usernameError ? "Username must be unique." : ""}
+                        onBlur={() => validateUsername(username)}
                     />
                     <Input
                         placeholder='Password'
@@ -75,6 +74,12 @@ function CreateProfile({ navigation }) {
                     title='Continue'
                     buttonStyle={styles.buttonStyle}
                     titleStyle={{ fontSize: 18 }}
+                    onPress={() => {
+                        if (username === '') alert('Username must not be left blank.')
+                        else if (password === '') alert("Password must not be left blank.")
+                        else if (passwordError === true) alert("Passwords do not match.")
+                        else navigation.navigate('POC', {email: route.params.email, username: username, password: password}) 
+                    }}
                 />
             </View>
         </View>

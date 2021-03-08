@@ -7,6 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import FirstScreen from './screens/FirstScreen'
 import LoginScreen from './screens/LoginScreen'
 import CreateProfile from './screens/CreateProfile'
+import POCScreen from './screens/POCScreen'
+import ProfileScreen from './screens/ProfileScreen'
 
 const Stack = createStackNavigator();
 
@@ -16,9 +18,12 @@ export default function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen options={{ headerShown: false }} name="First" component={FirstScreen} />
+          <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
           <Stack.Screen options={{ headerShown: false }} name="Create" component={CreateProfile} />
-          {/* <Stack.Screen options={{ headerShown: false }} name="First" component={FirstScreen} />
-          <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} /> */}
+          <Stack.Screen options={{ headerShown: false }} name="POC" component={POCScreen} />
+          <Stack.Screen options={{ headerShown: false }} name="Profile" component={ProfileScreen} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
