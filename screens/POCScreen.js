@@ -36,7 +36,7 @@ function POCScreen({ route, navigation }) {
                     buttonStyle={styles.buttonStyle}
                     titleStyle={{ fontSize: 18 }}
                     onPress={() => {
-                        fetch('http://192.168.10.6:5000/user/signup', {
+                        fetch('http://192.168.10.4:5000/user/signup', {
                             method: 'POST',
                             headers: {
                                 'Accept': 'application/json',
@@ -56,6 +56,7 @@ function POCScreen({ route, navigation }) {
                             .then(data => {
                                 if (data.status) {
                                     alert('Account Created')
+                                    navigation.navigate('Login')
                                 }
                                 else alert(data.message)
                             })

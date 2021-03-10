@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Input, Button, Text } from 'react-native-elements';
+import { Input, Button, Text, Image } from 'react-native-elements';
 
 function CreateProfile({ route, navigation }) {
     const [username, setUsername] = React.useState('')
@@ -78,7 +78,7 @@ function CreateProfile({ route, navigation }) {
                         if (username === '') alert('Username must not be left blank.')
                         else if (password === '') alert("Password must not be left blank.")
                         else if (passwordError === true) alert("Passwords do not match.")
-                        else navigation.navigate('POC', {email: route.params.email, username: username, password: password}) 
+                        else navigation.navigate('POC', { email: route.params.email, username: username, password: password })
                     }}
                 />
             </View>

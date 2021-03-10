@@ -6,8 +6,8 @@ function FirstScreen({ navigation }) {
     return (
         <View style={styles.home}>
             <Image
-                source={require('../images/referee-logo-transparent-bg.png')}
-                style={{ width: 200, height: 200 }}
+                source={require('../images/referee-karobar-logo-solid-bg.png')}
+                style={{ width: 250, height: 250 }}
             />
             <Button
                 title="Get Started"

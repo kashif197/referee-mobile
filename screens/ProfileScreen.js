@@ -1,42 +1,110 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Input, Button, Text, Image } from 'react-native-elements';
+import { StyleSheet, View, ImageBackground } from 'react-native';
+import { Input, Button, Text, Avatar, ListItem, Icon } from 'react-native-elements';
 
-
-function ProfileScreen({ navigation }) {
+function ProfileScreen({ route, navigation }) {
     return (
-        <View>
-            <View style={styles.statsBox}>
-                <View style={{alignItems: 'center'}}>
-                    <Image
-                        source={require('../images/referee-logo-transparent-bg.png')}
-                        style={{ width: 150, height: 150 }}
+        <View style={styles.mainContainer}>
+            <ImageBackground source={require('../images/referee-web-bg.png')} style={{ width: 415 }}>
+                <View style={styles.headerArea}>
+                    <Avatar
+                        rounded
+                        source={{ uri: 'https://lh3.googleusercontent.com/a-/AOh14GgLQAod-ufw4w9xEig-YCQT-SFJahNGzuprDhIusg=s96-c' }}
+                        size="xlarge"
                     />
+                    {/* <View style={styles.headerBorder}><Text style={styles.headerText}>{route.params.title}</Text></View> */}
                 </View>
-                <Text style={styles.header}>Hello</Text>
-                <Text style={styles.subheader}>Zombie Burger</Text>
-            </View>
+            </ImageBackground>
+            <ListItem bottomDivider>
+                <ListItem.Content>
+                    <ListItem.Title>Business Title</ListItem.Title>
+                </ListItem.Content>
+                <Text style={{ fontSize: 16, color: '#707070' }}>{route.params.title}</Text>
+                <Icon
+                    name="chevron-forward-outline"
+                    type='ionicon'
+                    color='#707070'
+                />
+            </ListItem>
+            <ListItem bottomDivider>
+                <ListItem.Content>
+                    <ListItem.Title>Email Address</ListItem.Title>
+                </ListItem.Content>
+                <Text style={{ fontSize: 16, color: '#707070' }}>{route.params.email}</Text>
+                <Icon
+                    name="chevron-forward-outline"
+                    type='ionicon'
+                    color='#707070'
+                />
+            </ListItem>
+            <ListItem bottomDivider>
+                <ListItem.Content>
+                    <ListItem.Title>Username</ListItem.Title>
+                </ListItem.Content>
+                <Text style={{ fontSize: 16, color: '#707070' }}>{route.params.username}</Text>
+                <Icon
+                    name="chevron-forward-outline"
+                    type='ionicon'
+                    color='#707070'
+                />
+            </ListItem>
+            <ListItem bottomDivider>
+                <ListItem.Content>
+                    <ListItem.Title>Contact Number</ListItem.Title>
+                </ListItem.Content>
+                <Text style={{ fontSize: 16, color: '#707070' }}>{route.params.contact}</Text>
+                <Icon
+                    name="chevron-forward-outline"
+                    type='ionicon'
+                    color='#707070'
+                />
+            </ListItem>
+            <ListItem bottomDivider>
+                <ListItem.Content>
+                    <ListItem.Title>Designation</ListItem.Title>
+                </ListItem.Content>
+                <Text style={{ fontSize: 16, color: '#707070' }}>{route.params.designation}</Text>
+                <Icon
+                    name="chevron-forward-outline"
+                    type='ionicon'
+                    color='#707070'
+                />
+            </ListItem>
+            <ListItem bottomDivider containerStyle={{ marginTop: 20 }} onPress={() => {console.log(route.params.id) ; navigation.navigate('Offers', { id: route.params.id, token: route.params.token })}}>
+                <ListItem.Content>
+                    <ListItem.Title>My Offers</ListItem.Title>
+                </ListItem.Content>
+                <Icon
+                    name="chevron-forward-outline"
+                    type='ionicon'
+                    color='#707070'
+                />
+            </ListItem>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    statsBox: {
-        backgroundColor: '#2EC4B6',
-        height: 400,
-        borderBottomLeftRadius: 500,
+    mainContainer: {
     },
-    header: {
-        fontSize: 30,
-        marginLeft: 15,
-        marginTop: 170,
-        fontWeight: 'bold'
+    image: {
+        flex: 1,
+        height: 200,
+        width: 200,
+        resizeMode: "cover",
+        justifyContent: "center"
     },
-    subheader: {
-        fontSize: 30,
-        marginLeft: 15,
-        fontWeight: 'bold'
+    headerArea: {
+        height: 250,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
+    headerText: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginTop: 30,
+    }
 })
 
 export default ProfileScreen

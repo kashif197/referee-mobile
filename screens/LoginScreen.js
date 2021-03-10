@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input, Button, Text, SocialIcon } from 'react-native-elements';
 import * as Google from "expo-google-app-auth"
@@ -16,8 +16,15 @@ function LoginScreen({ navigation }) {
     const [photoURL, setPhotoURL] = React.useState('')
     const [userData, setUserData] = React.useState('')
 
+    useEffect(
+        () => {
+            if (userData !== '') navigation.navigate('Profile', { token: userData.token, id: userData.id, title: userData.title, username: userData.username, email: userData.email, designation: userData.designation, contact: userData.contact })
+        },
+        [userData],
+    );
+
     function signInLocal() {
-        fetch('http://192.168.10.6:5000/user/login', {
+        fetch('http://192.168.10.4:5000/user/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -36,11 +43,14 @@ function LoginScreen({ navigation }) {
                 else {
                     setUserData({
                         status: data.status,
-                        name: data.name,
+                        title: data.title,
                         id: data.id,
-                        token: data.token
+                        token: data.token,
+                        email: data.email,
+                        username: data.username,
+                        contact: data.contact,
+                        designation: data.designation,
                     })
-                    navigation.navigate('Profile')
                 }
 
             })
@@ -56,7 +66,7 @@ function LoginScreen({ navigation }) {
             });
 
             if (result.type === 'success') {
-                fetch("http://192.168.10.6:5000/admin/checkEmail", {
+                fetch("http://192.168.10.4:5000/admin/checkEmail", {
                     method: "POST",
                     headers: {
                         "Accept": "application/json",
@@ -68,11 +78,12 @@ function LoginScreen({ navigation }) {
                 })
                     .then((res) => res.json())
                     .then((Json) => {
-                        if (Json.email) {
-                            navigation.navigate('Profile')
+                        console.log(Json)
+                        if (Json.email === false) {
+                            navigation.navigate('Create', { result })
                         }
                         else {
-                            navigation.navigate('Create', { result })
+                            navigation.navigate('Profile', { result: result, id: Json.data._id, token: Json.token, title: Json.data.title, username: Json.data.username, email: Json.data.email, designation: Json.data.designation, contact: Json.data.contact })
                         }
 
                     })
@@ -101,7 +112,7 @@ function LoginScreen({ navigation }) {
                 // Get the user's name using Facebook's Graph API
                 const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=email,name`);
                 const userInfo = await response.json()
-                fetch("http://192.168.10.6:5000/admin/checkEmail", {
+                fetch("http://192.168.10.4:5000/admin/checkEmail", {
                     method: "POST",
                     headers: {
                         "Accept": "application/json",
@@ -113,12 +124,13 @@ function LoginScreen({ navigation }) {
                 })
                     .then((res) => res.json())
                     .then((Json) => {
-                        if (Json.email) {
-                            navigation.navigate('Profile')
+                        if (Json.email === false) {
+                            navigation.navigate('Create', { name: userInfo.name, email: userInfo.email })
+
                         }
                         else {
-                            console.log(userInfo)
-                            navigation.navigate('Create', { name: userInfo.name, email: userInfo.email })
+                            navigation.navigate('Profile', { token: Json.token, id: Json.id, title: Json.data.title, username: Json.data.username, email: Json.data.email, designation: Json.data.designation, contact: Json.data.contact })
+
                         }
 
                     })
@@ -163,7 +175,7 @@ function LoginScreen({ navigation }) {
                             onChangeText={value => setPassword(value)}
                         />
                         <Text style={styles.forgot}>Forgot Password?</Text>
-                        <Text style={styles.forgot}>Create Account</Text>
+                        <Text style={styles.forgot} onPress={() => navigation.navigate('Email')}>Create Account</Text>
                     </View>
                 </View>
             </View>
@@ -172,7 +184,11 @@ function LoginScreen({ navigation }) {
                     title='Sign In'
                     buttonStyle={styles.buttonStyle}
                     titleStyle={{ fontSize: 18 }}
-                    onPress={signInLocal}
+                    onPress={() => {
+                        if (email === '') alert('Please enter a valid email.')
+                        else if (password === '') alert('Please enter your respective password.')
+                        else signInLocal()
+                    }}
                 />
                 <Text style={styles.or}>or login with</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', marginVertical: 10 }}>
