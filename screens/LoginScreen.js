@@ -24,7 +24,7 @@ function LoginScreen({ navigation }) {
     );
 
     function signInLocal() {
-        fetch('http://192.168.10.4:5000/user/login', {
+        fetch('http://192.168.10.7:5000/user/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -66,7 +66,7 @@ function LoginScreen({ navigation }) {
             });
 
             if (result.type === 'success') {
-                fetch("http://192.168.10.4:5000/admin/checkEmail", {
+                fetch("http://192.168.10.7:5000/admin/checkEmail", {
                     method: "POST",
                     headers: {
                         "Accept": "application/json",
@@ -112,7 +112,7 @@ function LoginScreen({ navigation }) {
                 // Get the user's name using Facebook's Graph API
                 const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=email,name`);
                 const userInfo = await response.json()
-                fetch("http://192.168.10.4:5000/admin/checkEmail", {
+                fetch("http://192.168.10.7:5000/admin/checkEmail", {
                     method: "POST",
                     headers: {
                         "Accept": "application/json",

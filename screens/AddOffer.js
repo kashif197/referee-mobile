@@ -12,7 +12,7 @@ function AddOffer({ route, navigation }) {
 
     function addAttempt(token, id, campaign_name, headline, commission_based, commission_value, target_transaction, description) {
         if (type === 0) {
-            fetch("http://192.168.10.4:5000/offer/addOffer", {
+            fetch("http://192.168.10.7:5000/offer/addOffer", {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer " + token,
@@ -42,7 +42,7 @@ function AddOffer({ route, navigation }) {
                 .catch((err) => console.log(err));
         }
         else {
-            fetch("http://192.168.10.4:5000/offer/addOffer", {
+            fetch("http://192.168.10.7:5000/offer/addOffer", {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer " + token,

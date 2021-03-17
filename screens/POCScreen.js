@@ -36,7 +36,7 @@ function POCScreen({ route, navigation }) {
                     buttonStyle={styles.buttonStyle}
                     titleStyle={{ fontSize: 18 }}
                     onPress={() => {
-                        fetch('http://192.168.10.4:5000/user/signup', {
+                        fetch('http://192.168.10.7:5000/user/signup', {
                             method: 'POST',
                             headers: {
                                 'Accept': 'application/json',

@@ -14,7 +14,7 @@ function OfferScreen({ route, navigation }) {
     );
 
     function deleteOffer(token, id) {
-        fetch("http://192.168.10.4:5000/offer/deleteOffer/" + id, {
+        fetch("http://192.168.10.7:5000/offer/deleteOffer/" + id, {
             method: "DELETE",
             headers: {
                 "Authorization": "Bearer " + token
@@ -32,7 +32,7 @@ function OfferScreen({ route, navigation }) {
     }
 
     function getOffers(id, token) {
-        fetch('http://192.168.10.4:5000/offer/find/' + id, {
+        fetch('http://192.168.10.7:5000/offer/find/' + id, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token,
@@ -62,7 +62,6 @@ function OfferScreen({ route, navigation }) {
                     title='Add Offer'
                     onPress={() => { console.log(route.params.id);navigation.navigate('AddOffer', { token: route.params.token, id: route.params.id }) }}
                 />
-                {console.log(offers)}
                 {offers.map(item => (
                     <Card key={item.name} containerStyle={{ elevation: 0, borderWidth: 0, marginTop: 40 }}>
                         <Image style={{ width: 400, height: 150 }} source={require('../images/referee-web-bg.png')} />

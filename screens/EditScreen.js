@@ -19,7 +19,7 @@ function EditScreen({ route, navigation }) {
     );
 
     function editAttempt(token, id, headline, description) {
-        fetch("http://192.168.10.4:5000/offer/edit/" + id, {
+        fetch("http://192.168.10.7:5000/offer/edit/" + id, {
             method: "PATCH",
             headers: {
                 "Authorization": "Bearer " + token,
