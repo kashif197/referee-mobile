@@ -3,8 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Input, Button, Text } from 'react-native-elements';
 
 function POCScreen({ route, navigation }) {
-    console.log(route.params.email)
-    const [title, setTitle] = React.useState('')
+     const [title, setTitle] = React.useState('')
     const [number, setNumber] = React.useState('')
     const [designation, setDesignation] = React.useState('')
 
@@ -36,7 +35,7 @@ function POCScreen({ route, navigation }) {
                     buttonStyle={styles.buttonStyle}
                     titleStyle={{ fontSize: 18 }}
                     onPress={() => {
-                        fetch('http://192.168.10.7:5000/user/signup', {
+                        fetch('http://192.168.10.13:5000/user/signup', {
                             method: 'POST',
                             headers: {
                                 'Accept': 'application/json',

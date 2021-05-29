@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input, Button, Text, Avatar, ListItem, Icon, ButtonGroup } from 'react-native-elements';
 
+
 function AddOffer({ route, navigation }) {
     const [type, setType] = React.useState(0)
     const [campaignName, setCampaignName] = React.useState('')
@@ -12,7 +13,7 @@ function AddOffer({ route, navigation }) {
 
     function addAttempt(token, id, campaign_name, headline, commission_based, commission_value, target_transaction, description) {
         if (type === 0) {
-            fetch("http://192.168.10.7:5000/offer/addOffer", {
+            fetch("http://192.168.10.13:5000/offer/addOffer", {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer " + token,
@@ -42,7 +43,7 @@ function AddOffer({ route, navigation }) {
                 .catch((err) => console.log(err));
         }
         else {
-            fetch("http://192.168.10.7:5000/offer/addOffer", {
+            fetch("http://192.168.10.13:5000/offer/addOffer", {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer " + token,
@@ -123,7 +124,11 @@ function AddOffer({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-
+    buttonStyle: {
+        backgroundColor: '#2EC4B6',
+        width: 320,
+        marginLeft: 20,
+    },
 })
 
 export default AddOffer

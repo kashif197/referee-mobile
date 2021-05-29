@@ -1,109 +1,194 @@
-import React from 'react';
-import { StyleSheet, View, ImageBackground } from 'react-native';
-import { Input, Button, Text, Avatar, ListItem, Icon } from 'react-native-elements';
+import React, { useContext } from 'react';
+import { StyleSheet, View, ScrollView, Linking  } from 'react-native';
+import { Button, Text, Avatar, ListItem, Icon} from 'react-native-elements';
+import { LoginContext } from '../contexts/LoginContext';
+import AsyncStorage from '@react-native-community/async-storage'
+
+const storeData = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key,value);
+    } catch (err) {
+      console.log(err)
+    }
+  };
+
+const clearAsyncStorage = async() => {
+    AsyncStorage.clear();
+}
+
 
 function ProfileScreen({ route, navigation }) {
+    const { data, resetData } = useContext(LoginContext)
+
     return (
-        <View style={styles.mainContainer}>
-            <ImageBackground source={require('../images/referee-web-bg.png')} style={{ width: 415 }}>
+        <ScrollView>
+            <View style={styles.mainContainer}>
                 <View style={styles.headerArea}>
-                    <Avatar
+                    {/* <Avatar
                         rounded
-                        source={{ uri: 'https://lh3.googleusercontent.com/a-/AOh14GgLQAod-ufw4w9xEig-YCQT-SFJahNGzuprDhIusg=s96-c' }}
-                        size="xlarge"
-                    />
-                    {/* <View style={styles.headerBorder}><Text style={styles.headerText}>{route.params.title}</Text></View> */}
+                        source={{ uri: data.photoURL }}
+                        size="large"
+                    /> */}
+                    <View>
+                        <Text style={styles.usernameText}>{data.title}</Text>
+                        <Text style={styles.subText}>Joined in May 2021</Text>
+                    </View>
                 </View>
-            </ImageBackground>
-            <ListItem bottomDivider>
-                <ListItem.Content>
-                    <ListItem.Title>Business Title</ListItem.Title>
-                </ListItem.Content>
-                <Text style={{ fontSize: 16, color: '#707070' }}>{route.params.title}</Text>
-                <Icon
-                    name="chevron-forward-outline"
-                    type='ionicon'
-                    color='#707070'
+                <Text style={styles.menuHeader}>Profile Information</Text>
+                <ListItem bottomDivider>
+                    <ListItem.Content>
+                        <ListItem.Title style={{ fontWeight: 'bold' }}>Business Title</ListItem.Title>
+                    </ListItem.Content>
+                    <Text style={{ fontSize: 16, color: '#707070' }}>{data.title}</Text>
+
+                </ListItem>
+                <ListItem bottomDivider>
+                    <ListItem.Content>
+                        <ListItem.Title style={{ fontWeight: 'bold' }}>Email Address</ListItem.Title>
+                    </ListItem.Content>
+                    <Text style={{ fontSize: 16, color: '#707070' }}>{data.email}</Text>
+
+                </ListItem>
+                <ListItem bottomDivider>
+                    <ListItem.Content>
+                        <ListItem.Title style={{ fontWeight: 'bold' }}>Username</ListItem.Title>
+                    </ListItem.Content>
+                    <Text style={{ fontSize: 16, color: '#707070' }}>{data.username}</Text>
+
+                </ListItem>
+                <ListItem bottomDivider>
+                    <ListItem.Content>
+                        <ListItem.Title style={{ fontWeight: 'bold' }}>Contact Number</ListItem.Title>
+                    </ListItem.Content>
+                    <Text style={{ fontSize: 16, color: '#707070' }}>{data.contact}</Text>
+
+                </ListItem>
+                <ListItem bottomDivider>
+                    <ListItem.Content>
+                        <ListItem.Title style={{ fontWeight: 'bold' }}>Designation</ListItem.Title>
+                    </ListItem.Content>
+                    <Text style={{ fontSize: 16, color: '#707070' }}>{data.designation}</Text>
+
+                </ListItem>
+                <Text style={styles.menuHeader}>Account Management</Text>
+                <ListItem bottomDivider onPress={() => { navigation.navigate('RequestSupport', { id: data.id, token: data.token }) }}>
+                    <ListItem.Content>
+                        <ListItem.Title style={{ fontWeight: 'bold' }}>Request Support</ListItem.Title>
+                    </ListItem.Content>
+                    <Icon
+                        name="chevron-forward-outline"
+                        type='ionicon'
+                        color='#707070'
+                    />
+                </ListItem>
+                <ListItem bottomDivider onPress={() => { }}>
+                    <ListItem.Content>
+                        <ListItem.Title style={{ fontWeight: 'bold' }}>Change Password</ListItem.Title>
+                    </ListItem.Content>
+                    <Icon
+                        name="chevron-forward-outline"
+                        type='ionicon'
+                        color='#707070'
+                    />
+                </ListItem>
+                <ListItem bottomDivider onPress={() => { }}>
+                    <ListItem.Content>
+                        <ListItem.Title style={{ fontWeight: 'bold' }}>Edit Personal Information</ListItem.Title>
+                    </ListItem.Content>
+                    <Icon
+                        name="chevron-forward-outline"
+                        type='ionicon'
+                        color='#707070'
+                    />
+                </ListItem>
+                <ListItem bottomDivider onPress={() => {Linking.openURL('http://192.168.10.13:5000/images/'+data.username+'.png')}}>
+                    <ListItem.Content>
+                        <ListItem.Title style={{ fontWeight: 'bold' }}>Show QR Code</ListItem.Title>
+                    </ListItem.Content>
+                    <Icon
+                        name="chevron-forward-outline"
+                        type='ionicon'
+                        color='#707070'
+                    />
+                </ListItem>
+                <ListItem bottomDivider onPress={() => {navigation.navigate('Record') }}>
+                    <ListItem.Content>
+                        <ListItem.Title style={{ fontWeight: 'bold' }}>Payment Records</ListItem.Title>
+                    </ListItem.Content>
+                    <Icon
+                        name="chevron-forward-outline"
+                        type='ionicon'
+                        color='#707070'
+                    />
+                </ListItem>
+                <Button
+                    title='LOG OUT'
+                    buttonStyle={styles.buttonStyle}
+                    titleStyle={{ fontSize: 18 }}
+                    onPress={() => {
+                        resetData()
+                        clearAsyncStorage()
+                        storeData('loggedState', 'no')
+                        navigation.navigate('Login')
+                    }}
                 />
-            </ListItem>
-            <ListItem bottomDivider>
-                <ListItem.Content>
-                    <ListItem.Title>Email Address</ListItem.Title>
-                </ListItem.Content>
-                <Text style={{ fontSize: 16, color: '#707070' }}>{route.params.email}</Text>
-                <Icon
-                    name="chevron-forward-outline"
-                    type='ionicon'
-                    color='#707070'
-                />
-            </ListItem>
-            <ListItem bottomDivider>
-                <ListItem.Content>
-                    <ListItem.Title>Username</ListItem.Title>
-                </ListItem.Content>
-                <Text style={{ fontSize: 16, color: '#707070' }}>{route.params.username}</Text>
-                <Icon
-                    name="chevron-forward-outline"
-                    type='ionicon'
-                    color='#707070'
-                />
-            </ListItem>
-            <ListItem bottomDivider>
-                <ListItem.Content>
-                    <ListItem.Title>Contact Number</ListItem.Title>
-                </ListItem.Content>
-                <Text style={{ fontSize: 16, color: '#707070' }}>{route.params.contact}</Text>
-                <Icon
-                    name="chevron-forward-outline"
-                    type='ionicon'
-                    color='#707070'
-                />
-            </ListItem>
-            <ListItem bottomDivider>
-                <ListItem.Content>
-                    <ListItem.Title>Designation</ListItem.Title>
-                </ListItem.Content>
-                <Text style={{ fontSize: 16, color: '#707070' }}>{route.params.designation}</Text>
-                <Icon
-                    name="chevron-forward-outline"
-                    type='ionicon'
-                    color='#707070'
-                />
-            </ListItem>
-            <ListItem bottomDivider containerStyle={{ marginTop: 20 }} onPress={() => {console.log(route.params.id) ; navigation.navigate('Offers', { id: route.params.id, token: route.params.token })}}>
-                <ListItem.Content>
-                    <ListItem.Title>My Offers</ListItem.Title>
-                </ListItem.Content>
-                <Icon
-                    name="chevron-forward-outline"
-                    type='ionicon'
-                    color='#707070'
-                />
-            </ListItem>
-        </View>
+
+
+            </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
-    mainContainer: {
-    },
     image: {
         flex: 1,
         height: 200,
         width: 200,
         resizeMode: "cover",
-        justifyContent: "center"
+        justifyContent: "center",
+        marginLeft: 15
+
     },
     headerArea: {
-        height: 250,
+        height: 120,
         alignItems: 'center',
-        justifyContent: 'center'
+        // justifyContent: 'center',
+        flexDirection: 'row',
+        backgroundColor: '#2EC4B6',
+        color: '#fff',
+        paddingLeft: 25,
+        marginTop: 25
     },
     headerText: {
         color: '#fff',
         fontSize: 20,
         fontWeight: 'bold',
         marginTop: 30,
+    },
+    usernameText: {
+        color: 'white',
+        fontWeight: 'bold',
+        marginHorizontal: 15,
+        fontSize: 24
+    },
+    menuHeader: {
+        marginVertical: 20,
+        marginLeft: 15,
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+    subText: {
+        color: 'white',
+        // fontWeight: 'bold',
+        fontSize: 16,
+        marginHorizontal: 15,
+        marginBottom: 5
+    },
+    buttonStyle: {
+        width: 330,
+        marginVertical: 20,
+        backgroundColor: '#DC143C',
+        marginLeft: 40
     }
 })
 

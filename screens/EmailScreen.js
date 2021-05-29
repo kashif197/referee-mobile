@@ -20,14 +20,14 @@ function EmailScreen({ navigation }) {
     return (
         <View style={styles.topContainer}>
             <View>
-                <View style={styles.statsBox}>
+                {/* <View style={styles.statsBox}>
                     <View style={{ alignItems: 'center' }}>
                         <Image
                             source={require('../images/referee-logo-transparent-bg.png')}
                             style={{ width: 150, height: 150 }}
                         />
                     </View>
-                </View>
+                </View> */}
                 <View style={styles.labelContainer}>
                     <Text style={styles.header}>Sign Up</Text>
                     <Text style={styles.subheader}>Enter an email for your new account.</Text>
@@ -55,8 +55,9 @@ function EmailScreen({ navigation }) {
                     buttonStyle={styles.buttonStyle}
                     titleStyle={{ fontSize: 18 }}
                     onPress={() => {
+                        validateEmail(email)
                         if (name === '') alert("Please enter your name before proceeding.")
-                        else if (email === '' || error === true) alert('Please enter a valid email before proceeding.')
+                        else if (email === '' || error == true) alert('Please enter a valid email before proceeding.')
                         else navigation.navigate('Create', { name: name, email: email })
                         }}
                 />
@@ -70,6 +71,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         flex: 1,
         justifyContent: 'space-between'
+    },
+    labelContainer : {
+        marginTop: 50
     },
     mainContainer: {
         alignItems: 'center',
