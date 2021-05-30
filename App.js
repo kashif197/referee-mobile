@@ -44,7 +44,7 @@ function MyTabs() {
           }
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Notifications"
         component={ProfileScreen}
         options={{
@@ -54,7 +54,7 @@ function MyTabs() {
             );
           }
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}

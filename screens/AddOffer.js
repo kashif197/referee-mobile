@@ -12,37 +12,37 @@ function AddOffer({ route, navigation }) {
     const [description, setDescription] = React.useState('')
 
     function addAttempt(token, id, campaign_name, headline, commission_based, commission_value, target_transaction, description) {
-        if (type === 0) {
-            fetch("http://192.168.10.13:5000/offer/addOffer", {
-                method: "POST",
-                headers: {
-                    "Authorization": "Bearer " + token,
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    business_id: id,
-                    campaign_name: campaign_name,
-                    headline: headline,
-                    commission_based: true,
-                    commission_value: commission_value,
-                    target_transaction: target_transaction,
-                    description: description
-                }),
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    if (data.status) {
-                        navigation.navigate('Offers', {updatePosts: 'headline'})
-                        alert('Offer Created')
-                    }
-                    else {
-                        alert(data.message)
-                    }
-                })
-                .catch((err) => console.log(err));
-        }
-        else {
+        // if (type === 0) {
+        //     fetch("http://192.168.10.13:5000/offer/addOffer", {
+        //         method: "POST",
+        //         headers: {
+        //             "Authorization": "Bearer " + token,
+        //             "Accept": "application/json",
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({
+        //             business_id: id,
+        //             campaign_name: campaign_name,
+        //             headline: headline,
+        //             commission_based: true,
+        //             commission_value: commission_value,
+        //             target_transaction: target_transaction,
+        //             description: description
+        //         }),
+        //     })
+        //         .then((res) => res.json())
+        //         .then((data) => {
+        //             if (data.status) {
+        //                 navigation.navigate('Offers', {updatePosts: 'headline'})
+        //                 alert('Offer Created')
+        //             }
+        //             else {
+        //                 alert(data.message)
+        //             }
+        //         })
+        //         .catch((err) => console.log(err));
+        // }
+        // else {
             fetch("http://192.168.10.13:5000/offer/addOffer", {
                 method: "POST",
                 headers: {
@@ -70,7 +70,7 @@ function AddOffer({ route, navigation }) {
                     }
                 })
                 .catch((err) => console.log(err));
-        }
+        // }
 
 
     }
@@ -80,7 +80,7 @@ function AddOffer({ route, navigation }) {
     return (
         <View style={{ marginTop: 80, width: 350, marginLeft: 20 }}>
             <View>
-                <ButtonGroup
+                {/* <ButtonGroup
                     onPress={setType}
                     selectedIndex={type}
                     buttons={buttons}
@@ -88,7 +88,7 @@ function AddOffer({ route, navigation }) {
                     buttonContainerStyle={{ height: 50 }}
                     selectedButtonStyle={{backgroundColor: '#2EC4B6'}}
                     textStyle={{fontSize: 16, fontWeight: 'bold'}}
-                />
+                /> */}
                 <Input
                     label="Campaign Name"
                     onChangeText={value => setCampaignName(value)}
@@ -101,11 +101,11 @@ function AddOffer({ route, navigation }) {
                     label="Target Transactions"
                     onChangeText={value => setTarget(value)}
                 />
-                <Input
+                {/* <Input
                     label="Commission Value"
                     onChangeText={value => setCommValue(value)}
                     disabled={(type === 0) ? false : true}
-                />
+                /> */}
                 <Input
                     label="Description"
                     onChangeText={value => setDescription(value)}
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: '#2EC4B6',
         width: 320,
-        marginLeft: 20,
+        alignSelf: 'center'
     },
 })
 

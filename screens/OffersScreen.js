@@ -1,8 +1,9 @@
 import React from 'react';
 import { useContext } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { Button, Text, Card, Image, Icon,} from 'react-native-elements';
+import { Button, Text, Card, Image, Icon } from 'react-native-elements';
 import { LoginContext } from '../contexts/LoginContext';
+import { FAB } from 'react-native-elements';
 
 function OfferScreen({ route, navigation }) {
 
@@ -60,15 +61,31 @@ function OfferScreen({ route, navigation }) {
 
     else {
         return (
-
-                <ScrollView style={styles.mainContainer}>
+            <View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 40, alignItems: 'center', marginHorizontal: 20 }}>
+                    <Text style={styles.menuHeader}>My Offers</Text>
                     <Button
+                        icon={
+                            <Icon
+                                name='add-circle'
+                                type='ionicon'
+                                color='#fff'
+                            />
+                        }
+                        title=" Add Offer"
+                        buttonStyle={styles.button}
+                        onPress={() => navigation.navigate('AddOffer', { token: data.token, id: data.id })}
+                    />
+
+                </View>
+                <ScrollView style={styles.mainContainer}>
+                    {/* <Button
                         buttonStyle={{ width: 120, backgroundColor: '#2EC4B6', marginTop: 40, alignSelf: 'center' }}
                         title='Add Offer'
                         onPress={() => { 
                             navigation.navigate('AddOffer', { token: data.token, id: data.id }) 
                             }}
-                    />
+                    /> */}
                     {offers.map(item => (
                         <Card key={item._id} containerStyle={{ elevation: 0, borderWidth: 0, marginTop: 40 }}>
                             <Image style={{ width: 400, height: 150 }} source={require('../images/referee-web-bg.png')} />
@@ -93,16 +110,24 @@ function OfferScreen({ route, navigation }) {
                             </View>
                         </Card>
                     ))}
-
                 </ScrollView>
 
+            </View>
         );
     }
 
 }
 
 const styles = StyleSheet.create({
-
+    menuHeader: {
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
+    button: {
+        backgroundColor: '#2EC4B6',
+        width: 120,
+        borderRadius: 20
+    },
 })
 
 export default OfferScreen
