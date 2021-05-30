@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { View, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, StyleSheet, ActivityIndicator, ScrollView } from 'react-native'
 import { Text, Card, Button, Icon, Header, Image } from 'react-native-elements';
 import { LoginContext } from '../contexts/LoginContext';
 
@@ -13,7 +13,7 @@ function FinanceScreen({ navigation }) {
     const [bestOffer, setBestOffer] = React.useState('')
 
     const getStats = () => {
-        fetch('http://192.168.10.13:5000/analytics/getBalance/' + data.id, {
+        fetch('http://192.168.10.15:5000/analytics/getBalance/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -24,7 +24,7 @@ function FinanceScreen({ navigation }) {
             .then(data => {
                 if (data.status) setBalance(data.data)
             })
-        fetch('http://192.168.10.13:5000/analytics/getTotalOffers/' + data.id, {
+        fetch('http://192.168.10.15:5000/analytics/getTotalOffers/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -35,7 +35,7 @@ function FinanceScreen({ navigation }) {
             .then(data => {
                 if (data.status) setTotalOffers(data.data)
             })
-        fetch('http://192.168.10.13:5000/analytics/getTotalAvailedOffers/' + data.id, {
+        fetch('http://192.168.10.15:5000/analytics/getTotalAvailedOffers/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -46,7 +46,7 @@ function FinanceScreen({ navigation }) {
             .then(data => {
                 if (data.status) setTotalAvailedOffers(data.data)
             })
-        fetch('http://192.168.10.13:5000/analytics/getTotalRedeemedOffers/' + data.id, {
+        fetch('http://192.168.10.15:5000/analytics/getTotalRedeemedOffers/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -57,7 +57,7 @@ function FinanceScreen({ navigation }) {
             .then(data => {
                 if (data.status) setTotalRedeemedOffers(data.data)
             })
-        fetch('http://192.168.10.13:5000/analytics/getTotalOffersPurchased/' + data.id, {
+        fetch('http://192.168.10.15:5000/analytics/getTotalOffersPurchased/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -68,7 +68,7 @@ function FinanceScreen({ navigation }) {
             .then(data => {
                 if (data.status) setTotalPurchasedOffers(data.data)
             })
-        fetch('http://192.168.10.13:5000/analytics/getBestOffer/' + data.id, {
+        fetch('http://192.168.10.15:5000/analytics/getBestOffer/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -84,7 +84,7 @@ function FinanceScreen({ navigation }) {
     if (balance !== '') {
 
         return (
-            <View>
+            <ScrollView>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 40, alignItems: 'center', marginHorizontal: 20 }}>
                     <Text style={styles.menuHeader}>Finances</Text>
                     <Icon
@@ -156,7 +156,7 @@ function FinanceScreen({ navigation }) {
                         }}
                     />
                 </View>
-            </View>
+            </ScrollView>
         );
     }
     else {
@@ -189,7 +189,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#2EC4B6',
         width: 300,
         alignSelf: 'center',
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 15
     },
     startLoad: {
         flex: 1,

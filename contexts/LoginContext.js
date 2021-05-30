@@ -34,7 +34,7 @@ const LoginContextProvider = (props) => {
         });
 
     function signInLocal(email, password) {
-        fetch('http://192.168.10.13:5000/user/login', {
+        fetch('http://192.168.10.15:5000/user/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -75,7 +75,7 @@ const LoginContextProvider = (props) => {
                     scopes: ['profile', 'email'],
                 });
                 if (result.type === 'success') {
-                    fetch("http://192.168.10.13:5000/admin/checkEmail", {
+                    fetch("http://192.168.10.15:5000/admin/checkEmail", {
                         method: "POST",
                         headers: {
                             "Accept": "application/json",
@@ -110,7 +110,7 @@ const LoginContextProvider = (props) => {
                 const result = JSON.parse(newResult)
                 if (result.type === 'success') {
 
-                    fetch("http://192.168.10.13:5000/admin/checkEmail", {
+                    fetch("http://192.168.10.15:5000/admin/checkEmail", {
                         method: "POST",
                         headers: {
                             "Accept": "application/json",
@@ -145,7 +145,7 @@ const LoginContextProvider = (props) => {
     async function logIn() {
         const value = await AsyncStorage.getItem('loggedState')
 
-        if (value == 'no') {
+        if (value == 'no' || value == null) {
             try {
                 await Facebook.initializeAsync({ appId: '929246954513285', appName: 'referee' });
                 const {
@@ -165,7 +165,7 @@ const LoginContextProvider = (props) => {
                     const photoInfo = `https://graph.facebook.com/${userInfo.id}/picture?type=square&access_token=${token}`
 
 
-                    fetch("http://192.168.10.13:5000/admin/checkEmail", {
+                    fetch("http://192.168.10.15:5000/admin/checkEmail", {
                         method: "POST",
                         headers: {
                             "Accept": "application/json",
@@ -202,7 +202,7 @@ const LoginContextProvider = (props) => {
         else {
             let fbDataString = await AsyncStorage.getItem("fbData")
             const fbData = JSON.parse(fbDataString)
-            fetch("http://192.168.10.13:5000/admin/checkEmail", {
+            fetch("http://192.168.10.15:5000/admin/checkEmail", {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",

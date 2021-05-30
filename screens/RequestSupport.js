@@ -12,7 +12,7 @@ function RequestSupport({navigation }) {
     }, [session]);
 
     const requestSession = () => {
-        fetch('http://192.168.10.13:5000/watson/session', {
+        fetch('http://192.168.10.15:5000/watson/session', {
             method: 'GET',
             // headers: {
             //     'Accept': 'application/json',

@@ -12,7 +12,7 @@ function AddCredit({ navigation }) {
     const [cvc, handleCVC] = React.useState('')
 
     function handleTransaction() {
-        fetch('http://192.168.10.13:5000/payment/stripeTransaction', {
+        fetch('http://192.168.10.15:5000/payment/stripeTransaction', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -72,6 +72,11 @@ function AddCredit({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    mainContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     button: {
         backgroundColor: '#2EC4B6',
         width: 300,

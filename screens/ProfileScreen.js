@@ -101,7 +101,7 @@ function ProfileScreen({ route, navigation }) {
                             color='#707070'
                         />
                     </ListItem>
-                    <ListItem bottomDivider onPress={() => { Linking.openURL('http://192.168.10.13:5000/images/' + data.username + '.png') }}>
+                    <ListItem bottomDivider onPress={() => { Linking.openURL('http://192.168.10.15:5000/images/' + data.username + '.png') }}>
                         <ListItem.Content>
                             <ListItem.Title style={{ fontWeight: 'bold' }}>Show QR Code</ListItem.Title>
                         </ListItem.Content>

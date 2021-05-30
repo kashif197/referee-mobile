@@ -8,7 +8,7 @@ function ForgotPassword({ route, navigation }) {
     const [error, setError] = React.useState(false)  // Input Valdiation
 
     const requestChange = () => {
-        fetch('http://192.168.10.13:5000/user/reset-password', {
+        fetch('http://192.168.10.15:5000/user/reset-password', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

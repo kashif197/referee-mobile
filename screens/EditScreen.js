@@ -19,7 +19,7 @@ function EditScreen({ route, navigation }) {
     );
 
     function editAttempt(token, id, headline, description) {
-        fetch("http://192.168.10.13:5000/offer/edit/" + id, {
+        fetch("http://192.168.10.15:5000/offer/edit/" + id, {
             method: "PATCH",
             headers: {
                 "Authorization": "Bearer " + token,
@@ -42,7 +42,7 @@ function EditScreen({ route, navigation }) {
 
 
     return (
-        <View style={{ marginTop: 100, width: 350, marginLeft: 20 }}>
+        <View style={{ marginTop: 100, width: 350, alignSelf: 'center' }}>
             <View>
                 <Input
                     label="Headline"

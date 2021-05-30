@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: '#2EC4B6',
         width: 330,
-        marginLeft: 40,
-        marginTop: 20
+        marginTop: 20,
+        alignSelf: 'center'
     },
     or: {
         fontSize: 18,

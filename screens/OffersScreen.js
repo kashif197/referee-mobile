@@ -12,7 +12,7 @@ function OfferScreen({ route, navigation }) {
 
 
     function deleteOffer(token, id) {
-        fetch("http://192.168.10.13:5000/offer/deleteOffer/" + id, {
+        fetch("http://192.168.10.15:5000/offer/deleteOffer/" + id, {
             method: "DELETE",
             headers: {
                 "Authorization": "Bearer " + token
@@ -30,7 +30,7 @@ function OfferScreen({ route, navigation }) {
     }
 
     function getOffers(id, token) {
-        fetch('http://192.168.10.13:5000/offer/find/' + id, {
+        fetch('http://192.168.10.15:5000/offer/find/' + id, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token,

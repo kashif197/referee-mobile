@@ -13,7 +13,7 @@ function AddOffer({ route, navigation }) {
 
     function addAttempt(token, id, campaign_name, headline, commission_based, commission_value, target_transaction, description) {
         // if (type === 0) {
-        //     fetch("http://192.168.10.13:5000/offer/addOffer", {
+        //     fetch("http://192.168.10.15:5000/offer/addOffer", {
         //         method: "POST",
         //         headers: {
         //             "Authorization": "Bearer " + token,
@@ -43,7 +43,7 @@ function AddOffer({ route, navigation }) {
         //         .catch((err) => console.log(err));
         // }
         // else {
-            fetch("http://192.168.10.13:5000/offer/addOffer", {
+            fetch("http://192.168.10.15:5000/offer/addOffer", {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer " + token,
@@ -78,7 +78,7 @@ function AddOffer({ route, navigation }) {
     const buttons = ['Commission', 'Non-Commission']
 
     return (
-        <View style={{ marginTop: 80, width: 350, marginLeft: 20 }}>
+        <View style={{ marginTop: 80, width: 350, alignSelf: 'center' }}>
             <View>
                 {/* <ButtonGroup
                     onPress={setType}
