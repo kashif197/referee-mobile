@@ -8,7 +8,7 @@ function PasscodeScreen({ route, navigation }) {
     const [error, setError] = React.useState(false)  // Input Valdiation
 
     const validatePasscode = () => {
-        fetch('http://192.168.10.15:5000/user/check-token', {
+        fetch('http://192.168.10.13:5000/user/check-token', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

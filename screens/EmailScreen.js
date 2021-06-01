@@ -35,7 +35,7 @@ function EmailScreen({ navigation }) {
                 <View style={styles.mainContainer}>
                     <View style={styles.emailContainer}>
                         <Input
-                            placeholder='Your Name'
+                            placeholder='Personal Name'
                             onChangeText={value => setName(value)}
                         />
                         <Input
@@ -59,7 +59,7 @@ function EmailScreen({ navigation }) {
                         if (name === '') alert("Please enter your name before proceeding.")
                         else if (email === '' || error == true) alert('Please enter a valid email before proceeding.')
                         else navigation.navigate('Create', { name: name, email: email })
-                        }}
+                    }}
                 />
             </View>
         </View>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between'
     },
-    labelContainer : {
+    labelContainer: {
         marginTop: 50
     },
     mainContainer: {
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: '#2EC4B6',
         width: 320,
-        marginLeft: 40,
+        alignSelf: 'center',
         marginBottom: 20
     },
     statsBox: {

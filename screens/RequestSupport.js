@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
-import { Button, Image } from 'react-native-elements';
+import { Button, Image, Text } from 'react-native-elements';
 import { LoginContext } from '../contexts/LoginContext';
 
-function RequestSupport({navigation }) {
+function RequestSupport({ navigation }) {
 
     const [session, setSession] = React.useState('')
 
     useEffect(() => {
-        if (session !== '') navigation.navigate('Support', {session_id: session})
+        if (session !== '') navigation.navigate('Support', { session_id: session })
     }, [session]);
 
     const requestSession = () => {
-        fetch('http://192.168.10.15:5000/watson/session', {
+        fetch('http://192.168.10.13:5000/watson/session', {
             method: 'GET',
             // headers: {
             //     'Accept': 'application/json',
@@ -23,15 +23,16 @@ function RequestSupport({navigation }) {
             //     password: password
             // })
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            setSession(data.session_id)
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setSession(data.session_id)
+            })
     }
 
     return (
         <View style={styles.startLoad}>
+            <Image source={require('../images/bot.png')} style={{ width: 300, height: 300 }} />
             <Button
                 title="Request Support"
                 buttonStyle={styles.button}

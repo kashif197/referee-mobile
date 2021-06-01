@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useContext } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { Button, Text, Card, Image, Icon } from 'react-native-elements';
@@ -12,7 +12,7 @@ function OfferScreen({ route, navigation }) {
 
 
     function deleteOffer(token, id) {
-        fetch("http://192.168.10.15:5000/offer/deleteOffer/" + id, {
+        fetch("http://192.168.10.13:5000/offer/deleteOffer/" + id, {
             method: "DELETE",
             headers: {
                 "Authorization": "Bearer " + token
@@ -30,7 +30,7 @@ function OfferScreen({ route, navigation }) {
     }
 
     function getOffers(id, token) {
-        fetch('http://192.168.10.15:5000/offer/find/' + id, {
+        fetch('http://192.168.10.13:5000/offer/find/' + id, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token,
@@ -50,18 +50,28 @@ function OfferScreen({ route, navigation }) {
 
 
         return (
-            <View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 40, alignItems: 'center', marginHorizontal: 20 }}>
+                <Text style={styles.menuHeader}>My Offers</Text>
+                <Button
+                    icon={
+                        <Icon
+                            name='add-circle'
+                            type='ionicon'
+                            color='#fff'
+                        />
+                    }
+                    title=" Add Offer"
+                    buttonStyle={styles.button}
+                    onPress={() => navigation.navigate('AddOffer', { token: data.token, id: data.id })}
+                />
+
             </View>
         )
     }
 
-    else if (offers === 'clear') {
-
-    }
-
     else {
         return (
-            <View>
+            <ScrollView>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 40, alignItems: 'center', marginHorizontal: 20 }}>
                     <Text style={styles.menuHeader}>My Offers</Text>
                     <Button
@@ -78,7 +88,7 @@ function OfferScreen({ route, navigation }) {
                     />
 
                 </View>
-                <ScrollView style={styles.mainContainer}>
+                <View style={styles.mainContainer}>
                     {/* <Button
                         buttonStyle={{ width: 120, backgroundColor: '#2EC4B6', marginTop: 40, alignSelf: 'center' }}
                         title='Add Offer'
@@ -110,9 +120,9 @@ function OfferScreen({ route, navigation }) {
                             </View>
                         </Card>
                     ))}
-                </ScrollView>
+                </View>
 
-            </View>
+            </ScrollView>
         );
     }
 

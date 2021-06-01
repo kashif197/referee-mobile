@@ -10,7 +10,7 @@ function SupportScreen({ route, navigation }) {
     const { data } = useContext(LoginContext)
 
     const sendMessage = (message) => {
-        fetch('http://192.168.10.15:5000/watson/message', {
+        fetch('http://192.168.10.13:5000/watson/message', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -7,7 +7,7 @@ function NewPassword({ route, navigation }) {
     const [password, setPassword] = React.useState('')
 
     const newPass = () => {
-        fetch('http://192.168.10.15:5000/user/new-password', {
+        fetch('http://192.168.10.13:5000/user/new-password', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

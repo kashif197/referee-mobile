@@ -34,7 +34,7 @@ const LoginContextProvider = (props) => {
         });
 
     function signInLocal(email, password) {
-        fetch('http://192.168.10.15:5000/user/login', {
+        fetch('http://192.168.10.13:5000/user/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -69,13 +69,13 @@ const LoginContextProvider = (props) => {
         // OAuth Sign In
         try {
             const value = await AsyncStorage.getItem('loggedState')
-            if (value == 'no') {
+            if (value == 'no' || value == null) {
                 const result = await Google.logInAsync({
                     androidClientId: '285468949208-artesopbhrnf52hv5puqks1jlgqibaae.apps.googleusercontent.com',
                     scopes: ['profile', 'email'],
                 });
                 if (result.type === 'success') {
-                    fetch("http://192.168.10.15:5000/admin/checkEmail", {
+                    fetch("http://192.168.10.13:5000/admin/checkEmail", {
                         method: "POST",
                         headers: {
                             "Accept": "application/json",
@@ -88,14 +88,15 @@ const LoginContextProvider = (props) => {
                         .then((res) => res.json())
                         .then((data) => {
                             if (data.email === false) {
-                                navigation.navigate('Create', { result })
+                                changeData({status: false, result: result})
                             }
                             else {
                                 storeData('loggedState', 'oauth')
                                 let newResult = JSON.stringify(result)
                                 storeData('oauthResult', newResult)
                                 // Update Context
-                                changeData(data.token, data.data.id, data.data.title, data.data.username, data.data.email, data.data.designation, data.data.contact, result.user.photoUrl)
+                                console.log(data)
+                                changeData(data.token, data.data._id, data.data.title, data.data.username, data.data.email, data.data.designation, data.data.contact, result.user.photoUrl)
                             }
 
                         })
@@ -110,7 +111,7 @@ const LoginContextProvider = (props) => {
                 const result = JSON.parse(newResult)
                 if (result.type === 'success') {
 
-                    fetch("http://192.168.10.15:5000/admin/checkEmail", {
+                    fetch("http://192.168.10.13:5000/admin/checkEmail", {
                         method: "POST",
                         headers: {
                             "Accept": "application/json",
@@ -127,7 +128,7 @@ const LoginContextProvider = (props) => {
                             }
                             else {
                                 console.log('running')
-                                changeData(data.token, data.data.id, data.data.title, data.data.username, data.data.email, data.data.designation, data.data.contact, result.user.photoUrl)
+                                changeData(data.token, data.data._id, data.data.title, data.data.username, data.data.email, data.data.designation, data.data.contact, result.user.photoUrl)
                             }
 
                         })
@@ -165,7 +166,7 @@ const LoginContextProvider = (props) => {
                     const photoInfo = `https://graph.facebook.com/${userInfo.id}/picture?type=square&access_token=${token}`
 
 
-                    fetch("http://192.168.10.15:5000/admin/checkEmail", {
+                    fetch("http://192.168.10.13:5000/admin/checkEmail", {
                         method: "POST",
                         headers: {
                             "Accept": "application/json",
@@ -186,7 +187,7 @@ const LoginContextProvider = (props) => {
                                 let fbDataString = JSON.stringify(fbData)
                                 storeData("loggedState", "fb")
                                 storeData("fbData", fbDataString)
-                                changeData(data.token, data.data.id, data.data.title, data.data.username, data.data.email, data.data.designation, data.data.contact, photoInfo)
+                                changeData(data.token, data.data._id, data.data.title, data.data.username, data.data.email, data.data.designation, data.data.contact, photoInfo)
                             }
 
                         })
@@ -202,7 +203,7 @@ const LoginContextProvider = (props) => {
         else {
             let fbDataString = await AsyncStorage.getItem("fbData")
             const fbData = JSON.parse(fbDataString)
-            fetch("http://192.168.10.15:5000/admin/checkEmail", {
+            fetch("http://192.168.10.13:5000/admin/checkEmail", {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
@@ -219,7 +220,7 @@ const LoginContextProvider = (props) => {
 
                     }
                     else {
-                        changeData(data.token, data.data.id, data.data.title, data.data.username, data.data.email, data.data.designation, data.data.contact, fbData.photoInfo)
+                        changeData(data.token, data.data._id, data.data.title, data.data.username, data.data.email, data.data.designation, data.data.contact, fbData.photoInfo)
                     }
 
                 })

@@ -11,9 +11,10 @@ function FinanceScreen({ navigation }) {
     const [totalRedeemedOffers, setTotalRedeemedOffers] = React.useState('')
     const [totalPurchasedOffers, setTotalPurchasedOffers] = React.useState('')
     const [bestOffer, setBestOffer] = React.useState('')
+    const [count, setCount] = React.useState('')
 
     const getStats = () => {
-        fetch('http://192.168.10.15:5000/analytics/getBalance/' + data.id, {
+        fetch('http://192.168.10.13:5000/analytics/getBalance/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -24,7 +25,7 @@ function FinanceScreen({ navigation }) {
             .then(data => {
                 if (data.status) setBalance(data.data)
             })
-        fetch('http://192.168.10.15:5000/analytics/getTotalOffers/' + data.id, {
+        fetch('http://192.168.10.13:5000/analytics/getTotalOffers/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -35,7 +36,7 @@ function FinanceScreen({ navigation }) {
             .then(data => {
                 if (data.status) setTotalOffers(data.data)
             })
-        fetch('http://192.168.10.15:5000/analytics/getTotalAvailedOffers/' + data.id, {
+        fetch('http://192.168.10.13:5000/analytics/getTotalAvailedOffers/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -46,7 +47,7 @@ function FinanceScreen({ navigation }) {
             .then(data => {
                 if (data.status) setTotalAvailedOffers(data.data)
             })
-        fetch('http://192.168.10.15:5000/analytics/getTotalRedeemedOffers/' + data.id, {
+        fetch('http://192.168.10.13:5000/analytics/getTotalRedeemedOffers/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -57,7 +58,7 @@ function FinanceScreen({ navigation }) {
             .then(data => {
                 if (data.status) setTotalRedeemedOffers(data.data)
             })
-        fetch('http://192.168.10.15:5000/analytics/getTotalOffersPurchased/' + data.id, {
+        fetch('http://192.168.10.13:5000/analytics/getTotalOffersPurchased/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -68,16 +69,18 @@ function FinanceScreen({ navigation }) {
             .then(data => {
                 if (data.status) setTotalPurchasedOffers(data.data)
             })
-        fetch('http://192.168.10.15:5000/analytics/getBestOffer/' + data.id, {
+        fetch('http://192.168.10.13:5000/analytics/getBestOffer/' + data.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
         })
+            // .then(res => res.text())
+            // .then(data => console.log(data))
             .then(res => res.json())
             .then(data => {
-                if (data.status) setBestOffer(data.data.obj)
+                if (data.status) {setBestOffer(data.data.obj);setCount(data.data.count)}
             })
     }
 
@@ -133,9 +136,9 @@ function FinanceScreen({ navigation }) {
                             </Text>
                         </View>
                     </Card>
-
-                    <Text style={styles.menuSecondHeader}>Top Offer</Text>
-                    <Card containerStyle={{ elevation: 0, borderWidth: 0, marginTop: 20 }}>
+                    <View style={{display: count == 0 ? "none" : null}}>
+                        <Text style={styles.menuSecondHeader}>Top Offer</Text>
+                        <Card containerStyle={{ elevation: 0, borderWidth: 0, marginTop: 20 }}>
                             <Image style={{ width: 400, height: 150 }} source={require('../images/referee-web-bg.png')} />
                             <Text style={{ marginTop: 10, marginBottom: 10, fontSize: 20, fontWeight: 'bold', color: '#000' }}>
                                 {bestOffer.offer_headline}
@@ -146,7 +149,7 @@ function FinanceScreen({ navigation }) {
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             </View>
                         </Card>
-
+                    </View>
                     <Button
                         title="Add Credit"
                         buttonStyle={styles.button}

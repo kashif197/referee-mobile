@@ -12,7 +12,7 @@ function AddCredit({ navigation }) {
     const [cvc, handleCVC] = React.useState('')
 
     function handleTransaction() {
-        fetch('http://192.168.10.15:5000/payment/stripeTransaction', {
+        fetch('http://192.168.10.13:5000/payment/stripeTransaction', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -36,7 +36,9 @@ function AddCredit({ navigation }) {
 
     return (
         <View style={styles.mainContainer}>
-
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 40, alignItems: 'center', marginHorizontal: 20 }}>
+                <Text style={styles.menuHeader}>Finances</Text>
+            </View>
             <Input
                 placeholder='Amount'
                 onChangeText={value => handleAmount(value)}
@@ -73,14 +75,19 @@ function AddCredit({ navigation }) {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flex: 4,
+        // justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 40
     },
     button: {
         backgroundColor: '#2EC4B6',
         width: 300,
         alignSelf: 'center'
+    },
+    menuHeader: {
+        fontWeight: 'bold',
+        fontSize: 20,
     },
 })
 

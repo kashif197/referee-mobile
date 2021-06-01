@@ -27,8 +27,8 @@ function FirstScreen({ navigation }) {
             else if (value == 'oauth') {
                 console.log(value)
 
-                setLoading(false)
-                setLogged(true)
+                // setLoading(false)
+                // setLogged(true)
                 signInWithGoogleAsync()
 
             }
@@ -49,7 +49,7 @@ function FirstScreen({ navigation }) {
     const [isLogged, setLogged] = React.useState(false)
 
 
-    const { data, signInLocal, signInWithGoogleAsync, logIn} = useContext(LoginContext)
+    const { data, signInLocal, signInWithGoogleAsync, logIn, resetData, storeData } = useContext(LoginContext)
 
     // First Scan Of Storage
     useEffect(() => {
@@ -58,6 +58,14 @@ function FirstScreen({ navigation }) {
 
     useEffect(
         () => {
+            // console.log(data)
+            // if (!data.status) {
+            //     console.log(data.status)
+            //     console.log('here')
+            //     // navigation.navigate('Create')
+
+            // }
+
             if (data !== '') {
                 navigation.navigate('Offers')
             }
@@ -70,9 +78,21 @@ function FirstScreen({ navigation }) {
 
     // Initial Loading Screen
     if (isLoading == true && isLogged == false) {
-        return (                        
+        return (
             <View style={styles.startLoad}>
                 <ActivityIndicator size="large" color="#2EC4B6" />
+                {/* <Button
+                    title='LOG OUT'
+                    buttonStyle={styles.buttonStyle}
+                    containerStyle={{ alignSelf: 'center' }}
+                    titleStyle={{ fontSize: 18 }}
+                    onPress={() => {
+                        resetData()
+                        clearAsyncStorage()
+                        storeData('loggedState', 'no')
+                        navigation.navigate('Login')
+                    }}
+                /> */}
             </View>
         );
     }
@@ -81,6 +101,18 @@ function FirstScreen({ navigation }) {
         return (
             <View style={styles.startLoad}>
                 <ActivityIndicator size="large" color="#2EC4B6" />
+                <Button
+                    title='LOG OUT'
+                    buttonStyle={styles.buttonStyle}
+                    containerStyle={{ alignSelf: 'center' }}
+                    titleStyle={{ fontSize: 18 }}
+                    onPress={() => {
+                        resetData()
+                        AsyncStorage.clear();
+                        // storeData('loggedState', 'no')
+                        navigation.navigate('Login')
+                    }}
+                />
             </View>
         );
     }
@@ -96,9 +128,9 @@ function FirstScreen({ navigation }) {
                     title="Get Started"
                     buttonStyle={styles.button}
                     titleStyle={{ color: '#2EC4B6' }}
-                    onPress={() => { 
+                    onPress={() => {
                         navigation.navigate('Login')
-                     }}
+                    }}
                 />
             </View>
         );

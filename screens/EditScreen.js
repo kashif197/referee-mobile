@@ -1,8 +1,10 @@
-import React, {useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input, Button, Text, Avatar, ListItem, Icon } from 'react-native-elements';
+import { LoginContext } from '../contexts/LoginContext';
 
 function EditScreen({ route, navigation }) {
+    const {data} = useContext(LoginContext)
 
     const [headline, setHeadline] = React.useState(route.params.headline)
     const [description, setDescription] = React.useState(route.params.description)
@@ -11,7 +13,7 @@ function EditScreen({ route, navigation }) {
     useEffect(
         () => {
             if (update !== '') {
-                navigation.navigate('Offers', {updatePosts: 'headline'})
+                navigation.navigate('Offers', { updatePosts: 'headline' })
                 setUpdate('')
             }
         },
@@ -19,7 +21,7 @@ function EditScreen({ route, navigation }) {
     );
 
     function editAttempt(token, id, headline, description) {
-        fetch("http://192.168.10.15:5000/offer/edit/" + id, {
+        fetch("http://192.168.10.13:5000/offer/edit/" + id, {
             method: "PATCH",
             headers: {
                 "Authorization": "Bearer " + token,
@@ -32,7 +34,7 @@ function EditScreen({ route, navigation }) {
                 description: description
             }),
         })
-            .then((res) => {res.json()})
+            .then((res) => { res.json() })
             .then((Json) => {
                 setUpdate('Done')
             })
@@ -59,8 +61,8 @@ function EditScreen({ route, navigation }) {
                     buttonStyle={styles.buttonStyle}
                     titleStyle={{ fontSize: 18 }}
                     onPress={() => {
-                        editAttempt(route.params.token, route.params.id,  headline, description)
-                        }}
+                        editAttempt(data.token, route.params.id, headline, description)
+                    }}
                 />
             </View>
         </View>
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: '#2EC4B6',
         width: 320,
-        marginLeft: 20,
+        alignSelf: 'center',
         marginTop: 20
     },
 })

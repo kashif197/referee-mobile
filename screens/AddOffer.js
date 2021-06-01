@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input, Button, Text, Avatar, ListItem, Icon, ButtonGroup } from 'react-native-elements';
+import { LoginContext } from '../contexts/LoginContext';
 
 
 function AddOffer({ route, navigation }) {
+    const {data} = useContext(LoginContext)
     const [type, setType] = React.useState(0)
     const [campaignName, setCampaignName] = React.useState('')
     const [headline, setHeadline] = React.useState('')
@@ -13,7 +15,7 @@ function AddOffer({ route, navigation }) {
 
     function addAttempt(token, id, campaign_name, headline, commission_based, commission_value, target_transaction, description) {
         // if (type === 0) {
-        //     fetch("http://192.168.10.15:5000/offer/addOffer", {
+        //     fetch("http://192.168.10.13:5000/offer/addOffer", {
         //         method: "POST",
         //         headers: {
         //             "Authorization": "Bearer " + token,
@@ -43,7 +45,7 @@ function AddOffer({ route, navigation }) {
         //         .catch((err) => console.log(err));
         // }
         // else {
-            fetch("http://192.168.10.15:5000/offer/addOffer", {
+            fetch("http://192.168.10.13:5000/offer/addOffer", {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer " + token,
@@ -114,7 +116,7 @@ function AddOffer({ route, navigation }) {
                     title='Save'
                     buttonStyle={styles.buttonStyle}
                     titleStyle={{ fontSize: 18 }}
-                    onPress={() => {addAttempt(route.params.token, route.params.id, campaignName, headline, type, commValue, target, description)}
+                    onPress={() => {console.log('data');addAttempt(data.token, data.id, campaignName, headline, type, commValue, target, description)}
                     }
                 />
             </View>

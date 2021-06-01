@@ -10,7 +10,7 @@ function CreateProfile({ route, navigation }) {
     const [passwordError, setPasswordError] = React.useState(false)
 
     function validateUsername(username) {
-        fetch("http://192.168.10.15:5000/admin/checkUsername", {
+        fetch("http://192.168.10.13:5000/admin/checkUsername", {
             method: "POST",
             headers: {
                 "Accept": "application/json",
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         marginBottom: 15,
         width: 320,
-        marginLeft: 40
+        alignSelf: 'center'
     },
     buttonStyle: {
         backgroundColor: '#2EC4B6'
